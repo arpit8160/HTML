@@ -1,0 +1,2692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoView - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background: linear-gradient(135deg, rgb(245, 247, 250) 0%, rgb(195, 207, 226) 100%);
+            color: #333;
+            margin: 0;
+        }
+
+        .login-wrapper {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1485291571150-772bcfc10da5?q=80&w=2128&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .login-box {
+            width: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: #333;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-image: linear-gradient(to right, rgb(0, 123, 255) 0%, rgb(0, 210, 255) 51%, rgb(0, 123, 255) 100%);
+            background-size: 200% auto;
+            transition: 0.5s;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-position: right center;
+        }
+
+        /* Home Page Styles */
+        .home-page {
+            display: block;
+            padding-top: 80px;
+        }
+
+        .navbar {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid rgb(0, 123, 255);
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: rgb(0, 123, 255);
+        }
+
+        .nav-links a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .nav-links a.active {
+            color: rgb(0, 123, 255);
+            font-weight: bold;
+            border-bottom: 3px solid rgb(0, 123, 255);
+            padding-bottom: 5px;
+        }
+
+        .location-selector {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 4px;
+            margin-right: 1rem;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hero {
+            position: relative;
+            color: white;
+            padding: 0;
+            height: 500px;
+            overflow: hidden;
+            background-color: rgb(44, 62, 80);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+        }
+
+        .carousel-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mySlides {
+            display: none;
+            height: 100%;
+            width: 100%;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5);
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 5s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 5
+            }
+        }
+
+        /* Next & previous buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            z-index: 3;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .hero h1 {
+            margin: 0 0 1rem 0;
+        }
+
+        .search-bar select {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: #333;
+            margin-right: 0.5rem;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 0.5rem;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: #333;
+        }
+
+        .search-bar button {
+            padding: 0.5rem 1rem;
+            background-image: linear-gradient(to right, rgb(0, 123, 255) 0%, rgb(0, 210, 255) 51%, rgb(0, 123, 255) 100%);
+            background-size: 200% auto;
+            transition: 0.5s;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .search-bar button:hover {
+            background-position: right center;
+        }
+
+        .price-container {
+            display: inline-block;
+            background: white;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .price-container input {
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: rgb(0, 123, 255);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .car-details {
+            padding: 1rem;
+            color: #333;
+        }
+
+        .car-details h5 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .car-details p {
+            color: #666;
+        }
+
+        .car-price {
+            color: rgb(0, 123, 255);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .detail-btn {
+            display: block;
+            width: 100%;
+            padding: 0.6rem;
+            margin-top: 10px;
+            background-color: white;
+            color: rgb(0, 123, 255);
+            border: 1px solid rgb(0, 123, 255);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .detail-btn:hover {
+            background: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 210, 255));
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            color: #333;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .spec-item {
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .spec-label {
+            color: #666;
+            font-size: 0.8rem;
+            display: block;
+        }
+
+        .spec-value {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 2rem;
+            background-color: white;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid rgb(0, 123, 255);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewer-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .review-stars {
+            color: rgb(255, 193, 7);
+        }
+
+        .review-text {
+            color: #555;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 0;
+            background-color: #f8f9fa;
+            margin-top: 0;
+            display: none;
+            width: 100%;
+        }
+
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
+        }
+
+        .about-content-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .about-intro {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 4rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5rem;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 220px;
+            transition: transform 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: rgb(0, 123, 255);
+            margin-bottom: 1rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .mission-vision-container {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .mv-card {
+            flex: 1;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .mv-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 210, 255));
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .icon-box i {
+            font-size: 2rem;
+            color: rgb(0, 123, 255);
+        }
+
+        .mv-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .mv-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Brand Section */
+        .brand-section {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .brand-grid {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            padding: 0 2rem 1.5rem 2rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .brand-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgb(51, 51, 51);
+            border-bottom: 4px solid transparent;
+            width: 150px;
+            height: 150px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+        }
+
+        .brand-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-bottom-color: rgb(0, 123, 255);
+            background: linear-gradient(to bottom right, #ffffff, #f0f8ff);
+        }
+
+        .brand-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: none;
+            opacity: 1;
+        }
+
+        .brand-item:hover .brand-logo {
+            transform: scale(1.1);
+        }
+
+        .brand-name {
+            font-weight: 600;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        .brand-item:hover .brand-name {
+            color: rgb(0, 123, 255);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: rgb(236, 240, 241);
+            padding: 4rem 2rem 2rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h5 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: rgb(0, 123, 255);
+        }
+
+        .footer-section p {
+            line-height: 1.6;
+            color: rgb(189, 195, 199);
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: rgb(189, 195, 199);
+            text-decoration: none;
+            transition: color 0.3s, padding-left 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: rgb(0, 123, 255);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            margin-top: 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgb(52, 73, 94);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: rgb(0, 123, 255);
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        .footer-section.newsletter form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-section.newsletter input {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgb(52, 73, 94);
+            color: white;
+        }
+
+        .footer-section.newsletter button {
+            padding: 10px;
+            background-image: linear-gradient(to right, rgb(0, 123, 255) 0%, rgb(0, 210, 255) 51%, rgb(0, 123, 255) 100%);
+            background-size: 200% auto;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.5s;
+        }
+
+        .footer-section.newsletter button:hover {
+            background-position: right center;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgb(52, 73, 94);
+            color: rgb(189, 195, 199);
+        }
+
+        .add {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgb(30, 3, 203);
+            color: rgb(0, 123, 255);
+            font-weight: bold;
+
+
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 2rem;
+            background-color: white;
+            margin-top: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        /* Terms Section */
+        .terms-section {
+            padding: 2rem;
+            background-color: white;
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .terms-content h3 {
+            color: #333;
+            margin-top: 1.5rem;
+        }
+
+        .terms-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            padding: 2rem;
+            background-color: white;
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .privacy-content h3 {
+            color: #333;
+            margin-top: 1.5rem;
+        }
+
+        .privacy-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .sell-car-section {
+            padding: 2rem;
+            background-color: white;
+            margin-top: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            padding: 2rem;
+            background-color: white;
+            margin-top: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 2rem;
+            background-color: #f8f9fa;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #f0f8ff;
+        }
+
+        .faq-question i {
+            color: rgb(0, 123, 255);
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 1.5rem;
+        }
+
+        /* Comparison Bar */
+        #compare-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            color: white;
+            display: none;
+            /* Initially hidden */
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            gap: 20px;
+        }
+
+        #selected-cars {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-grow: 1;
+            overflow-x: auto;
+        }
+
+        .selected-car-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+
+        .selected-car-item img {
+            width: 40px;
+            height: 30px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        #compare-bar .compare-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        #compare-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        #compare-btn {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login page -->
+    <div class="login-wrapper" id="loginPage">
+        <div class="login-box" id="loginBox">
+            <h2>AutoView Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <button type="button" class="btn" onclick="closeLogin()"
+                    style="margin-top: 10px; background: rgb(108, 117, 125);">Cancel</button>
+                <p style="text-align: center; margin-top: 1rem; color: #666;">Don't have an account? <a href="#"
+                        onclick="showRegister()"
+                        style="color: rgb(0, 123, 255); text-decoration: none; font-weight: bold;">Register</a></p>
+
+            </form>
+        </div>
+        <div class="login-box" id="registerBox" style="display: none;">
+            <h2>Create Account</h2>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" required placeholder="Create a password">
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <button type="button" class="btn" onclick="closeLogin()"
+                    style="margin-top: 10px; background: rgb(108, 117, 125);">Cancel</button>
+                <p style="text-align: center; margin-top: 1rem; color: rgb(102, 102, 102);">Already have an account? <a
+                        href="#" onclick="showLogin()"
+                        style="color: rgb(0, 123, 255); text-decoration: none; font-weight: bold;">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div class="home-page" id="homePage">
+        <nav class="navbar">
+            <div class="logo" style="cursor: pointer; display: flex; align-items: center;"
+                onclick="filterCondition('All')">
+                <img src="https://play-lh.googleusercontent.com/X5ksxC2TbZrG3Feya0bkP5c7UhWJMVBrsQm9wjcBR0fej7wvZzCEVwQ6zvitvvRDYRk"
+                    alt="AutoView Logo" style="height: 40px; margin-right: 10px; border-radius: 5px;">
+                AutoView
+            </div>
+            <div class="search-bar">
+                <select id="brandFilter" onchange="filterCars()">
+                    <option value="">All Brands</option>
+                    <option value="Maruti">Maruti</option>
+                    <option value="Tata">Tata</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Kia">Kia</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Mahindra">Mahindra</option>
+                    <option value="Honda">Honda</option>
+                    <option value="MG">MG</option>
+                    <option value="Renault">Renault</option>
+                    <option value="Ford">Ford</option>
+                </select>
+                <input type="text" id="searchInput" onkeyup="filterCars()" placeholder="Search by Car Name...">
+                <button onclick="filterCars()">Search</button>
+            </div>
+            <div class="nav-links">
+                <select class="location-selector" id="cityFilter" onchange="filterCars()">
+                    <option value="">All Cities</option>
+                    <option value="Ahmedabad">📍 Ahmedabad</option>
+                    <option value="Delhi">📍 Delhi</option>
+                    <option value="Mumbai">📍 Mumbai</option>
+                    <option value="Bangalore">📍 Bangalore</option>
+                    <option value="Hyderabad">📍 Hyderabad</option>
+                </select>
+                <a href="#" id="navHome" onclick="filterCondition('All')" class="active">Home</a>
+                <a href="#" id="navNew" onclick="filterCondition('New')">New Cars</a>
+                <a href="#" id="navUsed" onclick="filterCondition('Used')">Used Cars</a>
+                <a href="#" id="navSell" onclick="showSellCar()">Sell Car</a>
+                <a href="#" id="authBtn" onclick="logout()"><i class="fas fa-user-circle"
+                        style="margin-right: 5px;"></i> Login/ Register</a>
+            </div>
+        </nav>
+        
+        <div class="hero">
+            <div class="carousel-container">
+                <div class="mySlides fade">
+                    <img src="./BHUB_Guidelines_Carousel_01-V2_2x-min.jpg" alt="Car 1">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://s.hdnux.com/photos/01/45/07/31/26506868/9/rawImage.jpg" alt="Car 2">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://www.experian.com/blogs/ask-experian/wp-content/uploads/what-is-bhph-auto-financing.jpg.webp"
+                        alt="Car 3">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://thumbs.dreamstime.com/b/happy-customer-traffic-sign-pointing-direction-to-x-86159222.jpg"
+                        alt="Car 4">
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <div class="hero-content">
+                <h1>Find your right car</h1>
+            </div>
+        </div>
+
+        <div id="carsSection">
+            <h2 class="section-title">Featured Cars</h2>
+            <div class="car-grid">
+                <div class="car-card" data-condition="New" data-popular="true" data-engine="1197 cc" data-power="88 bhp"
+                    data-mileage="22.38 kmpl" data-seats="5" data-transmission="Manual" data-tank="37 L"
+                    data-clearance="163 mm" data-boot="265 L" data-body="Hatchback" data-safety="2 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-64.jpeg"
+                        alt="Maruti Swift" class="car-image">
+                    <div class="car-details">
+                        <h5>Maruti Swift</h5>
+                        <p>Petrol • Manual</p>
+                        <div class="car-price">₹ 6.00 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-popular="true" data-engine="1199 cc"
+                    data-power="118 bhp" data-mileage="17.33 kmpl" data-seats="5" data-transmission="Automatic"
+                    data-tank="44 L" data-clearance="208 mm" data-boot="382 L" data-body="SUV" data-safety="5 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/141867/nexon-exterior-right-front-three-quarter-71.jpeg"
+                        alt="Tata Nexon" class="car-image">
+                    <div class="car-details">
+                        <h5>Tata Nexon</h5>
+                        <p>Petrol • Automatic</p>
+                        <div class="car-price">₹ 8.10 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-popular="true" data-engine="1493 cc"
+                    data-power="113 bhp" data-mileage="16.8 kmpl" data-seats="5" data-transmission="Manual"
+                    data-tank="50 L" data-clearance="190 mm" data-boot="433 L" data-body="SUV" data-safety="3 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/106815/creta-exterior-right-front-three-quarter-2.jpeg"
+                        alt="Hyundai Creta" class="car-image">
+                    <div class="car-details">
+                        <h5>Hyundai Creta</h5>
+                        <p>Diesel • Manual</p>
+                        <div class="car-price">₹ 10.87 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-popular="true" data-engine="1197 cc" data-power="88 bhp"
+                    data-mileage="22.35 kmpl" data-seats="5" data-transmission="Automatic" data-tank="37 L"
+                    data-clearance="170 mm" data-boot="318 L" data-body="Hatchback" data-safety="0 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.xrltU1bLX4Tya_45UmD71QHaEQ?pid=Api&P=0&h=180"
+                        alt="Maruti Baleno" class="car-image">
+                    <div class="car-details">
+                        <h5>Maruti Baleno</h5>
+                        <p>Petrol • Automatic</p>
+                        <div class="car-price">₹ 6.66 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1497 cc" data-power="113 bhp"
+                    data-mileage="16.5 kmpl" data-seats="5" data-transmission="Automatic" data-tank="50 L"
+                    data-clearance="190 mm" data-boot="433 L" data-body="SUV" data-safety="3 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/174323/seltos-exterior-right-front-three-quarter.jpeg"
+                        alt="Kia Seltos" class="car-image">
+                    <div class="car-details">
+                        <h5>Kia Seltos</h5>
+                        <p>Petrol • Automatic</p>
+                        <div class="car-price">₹ 10.90 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="2755 cc" data-power="201 bhp"
+                    data-mileage="10.0 kmpl" data-seats="7" data-transmission="Automatic" data-tank="80 L"
+                    data-clearance="225 mm" data-boot="296 L" data-body="SUV" data-safety="5 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg"
+                        alt="Toyota Fortuner" class="car-image">
+                    <div class="car-details">
+                        <h5>Toyota Fortuner</h5>
+                        <p>Diesel • Automatic</p>
+                        <div class="car-price">₹ 32.59 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1197 cc" data-power="82 bhp"
+                    data-mileage="17.5 kmpl" data-seats="5" data-transmission="Manual" data-tank="45 L"
+                    data-clearance="195 mm" data-boot="350 L" data-body="SUV" data-safety="4 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/141113/venue-exterior-right-front-three-quarter.jpeg"
+                        alt="Hyundai Venue" class="car-image">
+                    <div class="car-details">
+                        <h5>Hyundai Venue</h5>
+                        <p>Petrol • Manual</p>
+                        <div class="car-price">₹ 7.77 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1462 cc" data-power="102 bhp"
+                    data-mileage="19.8 kmpl" data-seats="5" data-transmission="Automatic" data-tank="48 L"
+                    data-clearance="200 mm" data-boot="328 L" data-body="SUV" data-safety="4 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.n1614joErzCYOrE1D9GvFwHaEK?pid=Api&P=0&h=180"
+                        alt="Maruti Brezza" class="car-image">
+                    <div class="car-details">
+                        <h5>Maruti Brezza</h5>
+                        <p>Petrol • Automatic</p>
+                        <div class="car-price">₹ 8.29 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1956 cc" data-power="167 bhp"
+                    data-mileage="16.3 kmpl" data-seats="5" data-transmission="Manual" data-tank="50 L"
+                    data-clearance="205 mm" data-boot="445 L" data-body="SUV" data-safety="5 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.vpDq_k4ERgsBgSBr60_YPwHaE6?pid=Api&P=0&h=180"
+                        alt="Tata Harrier" class="car-image">
+                    <div class="car-details">
+                        <h5>Tata Harrier</h5>
+                        <p>Diesel • Manual</p>
+                        <div class="car-price">₹ 15.20 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1999 cc" data-power="197 bhp"
+                    data-mileage="15.0 kmpl" data-seats="7" data-transmission="Automatic" data-tank="60 L"
+                    data-clearance="200 mm" data-boot="240 L" data-body="SUV" data-safety="5 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/42355/xuv700-exterior-right-front-three-quarter-3.jpeg"
+                        alt="Mahindra XUV700" class="car-image">
+                    <div class="car-details">
+                        <h5>Mahindra XUV700</h5>
+                        <p>Petrol • Automatic</p>
+                        <div class="car-price">₹ 14.01 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1493 cc" data-power="113 bhp"
+                    data-mileage="18.4 kmpl" data-seats="5" data-transmission="Automatic" data-tank="45 L"
+                    data-clearance="205 mm" data-boot="392 L" data-body="SUV" data-safety="3 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.siHrAlaiE2kgBHrTtIZoEwHaEK?pid=Api&P=0&h=180"
+                        alt="Kia Sonet" class="car-image">
+                    <div class="car-details">
+                        <h5>Kia Sonet</h5>
+                        <p>Diesel • Automatic</p>
+                        <div class="car-price">₹ 7.79 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1199 cc" data-power="88 bhp"
+                    data-mileage="18.6 kmpl" data-seats="5" data-transmission="Manual" data-tank="35 L"
+                    data-clearance="170 mm" data-boot="420 L" data-body="Sedan" data-safety="2 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/45951/amaze-exterior-right-front-three-quarter-3.jpeg"
+                        alt="Honda Amaze" class="car-image">
+                    <div class="car-details">
+                        <h5>Honda Amaze</h5>
+                        <p>Petrol • Manual</p>
+                        <div class="car-price">₹ 7.10 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1197 cc" data-power="88 bhp"
+                    data-mileage="22.3 kmpl" data-seats="5" data-transmission="Automatic" data-tank="37 L"
+                    data-clearance="170 mm" data-boot="318 L" data-body="Hatchback" data-safety="0 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/112839/glanza-exterior-right-front-three-quarter-5.jpeg"
+                        alt="Toyota Glanza" class="car-image">
+                    <div class="car-details">
+                        <h5>Toyota Glanza</h5>
+                        <p>Petrol • Automatic</p>
+                        <div class="car-price">₹ 6.81 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="1956 cc" data-power="167 bhp"
+                    data-mileage="15.5 kmpl" data-seats="5" data-transmission="Manual" data-tank="60 L"
+                    data-clearance="192 mm" data-boot="587 L" data-body="SUV" data-safety="5 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.c-NrkNmlyDSjNDViCOfFsQHaEo?pid=Api&P=0&h=180"
+                        alt="MG Hector" class="car-image">
+                    <div class="car-details">
+                        <h5>MG Hector</h5>
+                        <p>Diesel • Manual</p>
+                        <div class="car-price">₹ 15.00 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="999 cc" data-power="67 bhp"
+                    data-mileage="22.0 kmpl" data-seats="5" data-transmission="Manual" data-tank="28 L"
+                    data-clearance="184 mm" data-boot="279 L" data-body="Hatchback" data-safety="1 Star"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/141125/kwid-exterior-right-front-three-quarter-3.jpeg"
+                        alt="Renault Kwid" class="car-image">
+                    <div class="car-details">
+                        <h5>Renault Kwid</h5>
+                        <p>Petrol • Manual</p>
+                        <div class="car-price">₹ 4.70 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="New" data-engine="2184 cc" data-power="130 bhp"
+                    data-mileage="15.2 kmpl" data-seats="4" data-transmission="Automatic" data-tank="57 L"
+                    data-clearance="226 mm" data-boot="N/A" data-body="SUV" data-safety="4 Stars"
+                    onclick="showCarDetails(this)">
+                    <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/40087/thar-exterior-right-front-three-quarter-11.jpeg"
+                        alt="Mahindra Thar" class="car-image">
+                    <div class="car-details">
+                        <h5>Mahindra Thar</h5>
+                        <p>Diesel • Automatic</p>
+                        <div class="car-price">₹ 16.30 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="1497 cc" data-power="117 bhp"
+                    data-mileage="17.4 kmpl" data-seats="5" data-transmission="Manual" data-tank="40 L"
+                    data-clearance="165 mm" data-boot="510 L" data-body="Sedan" data-safety="4 Stars"
+                    data-driven="45,000 km" data-city="Mumbai" onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.L9M5p_aASbqC9v2mEIN_pgHaFj?pid=Api&P=0&h=180"
+                        alt="Honda City" class="car-image">
+                    <div class="car-details">
+                        <h5>Honda City (2018)</h5>
+                        <p>Petrol • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Mumbai</p>
+                        <div class="car-price">₹ 8.50 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="1248 cc" data-power="74 bhp"
+                    data-mileage="28.4 kmpl" data-seats="5" data-transmission="Automatic" data-tank="37 L"
+                    data-clearance="163 mm" data-boot="378 L" data-body="Sedan" data-safety="2 Stars"
+                    data-driven="32,000 km" data-city="Delhi" onclick="showCarDetails(this)">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.EFhxWFwNojYYuF1jHDhHpQHaE6?pid=Api&P=0&h=180"
+                        alt="Maruti Swift Dzire" class="car-image">
+                    <div class="car-details">
+                        <h5>Maruti Swift Dzire (2019)</h5>
+                        <p>Diesel • Automatic</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Delhi</p>
+                        <div class="car-price">₹ 7.20 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="1197 cc" data-power="81 bhp"
+                    data-mileage="18.9 kmpl" data-seats="5" data-transmission="Manual" data-tank="43 L"
+                    data-clearance="165 mm" data-boot="256 L" data-body="Hatchback" data-safety="2 Stars"
+                    data-driven="28,000 km" data-city="Ahmedabad" onclick="showCarDetails(this)">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.awpZUsHQTKgCR1e2rZcnpQHaEK?pid=Api&P=0&h=180"
+                        alt="Hyundai Grand i10" class="car-image">
+                    <div class="car-details">
+                        <h5>Hyundai Grand i10 (2018)</h5>
+                        <p>Petrol • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Ahmedabad</p>
+                        <div class="car-price">₹ 5.15 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="2393 cc" data-power="148 bhp"
+                    data-mileage="12.0 kmpl" data-seats="7" data-transmission="Manual" data-tank="55 L"
+                    data-clearance="178 mm" data-boot="300 L" data-body="MPV" data-safety="5 Stars"
+                    data-driven="85,000 km" data-city="Bangalore" onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.NgeGSOnrpTpKKn_7elnvtQHaFj?pid=Api&P=0&h=180"
+                        alt="Toyota Innova Crysta" class="car-image">
+                    <div class="car-details">
+                        <h5>Toyota Innova Crysta (2017)</h5>
+                        <p>Diesel • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Bangalore</p>
+                        <div class="car-price">₹ 16.50 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="998 cc" data-power="67 bhp"
+                    data-mileage="21.7 kmpl" data-seats="5" data-transmission="Manual" data-tank="32 L"
+                    data-clearance="165 mm" data-boot="341 L" data-body="Hatchback" data-safety="1 Star"
+                    data-driven="15,000 km" data-city="Hyderabad" onclick="showCarDetails(this)">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.HaR0t9rb08znp_4ePOXGuQHaEK?pid=Api&P=0&h=180"
+                        alt="Maruti WagonR" class="car-image">
+                    <div class="car-details">
+                        <h5>Maruti WagonR (2020)</h5>
+                        <p>Petrol • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Hyderabad</p>
+                        <div class="car-price">₹ 4.80 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="2523 cc" data-power="62 bhp"
+                    data-mileage="15.9 kmpl" data-seats="7" data-transmission="Manual" data-tank="60 L"
+                    data-clearance="180 mm" data-boot="690 L" data-body="SUV" data-safety="N/A" data-driven="120,000 km"
+                    data-city="Mumbai" onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.6uqxGORP4CeqWPeT-BnYPQHaE8?pid=Api&P=0&h=180"
+                        alt="Mahindra Bolero" class="car-image">
+                    <div class="car-details">
+                        <h5>Mahindra Bolero (2016)</h5>
+                        <p>Diesel • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Mumbai</p>
+                        <div class="car-price">₹ 6.25 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="1799 cc" data-power="140 bhp"
+                    data-mileage="16.5 kmpl" data-seats="5" data-transmission="Automatic" data-tank="47 L"
+                    data-clearance="171 mm" data-boot="430 L" data-body="Sedan" data-safety="5 Stars"
+                    data-driven="40,000 km" data-city="Delhi" onclick="showCarDetails(this)">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.nHv6N8d9xbMoc0LdSPmSbwHaFj?pid=Api&P=0&h=180"
+                        alt="Honda Civic" class="car-image">
+                    <div class="car-details">
+                        <h5>Honda Civic (2019)</h5>
+                        <p>Petrol • Automatic</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Delhi</p>
+                        <div class="car-price">₹ 14.00 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="1498 cc" data-power="99 bhp"
+                    data-mileage="23.0 kmpl" data-seats="5" data-transmission="Manual" data-tank="52 L"
+                    data-clearance="200 mm" data-boot="352 L" data-body="SUV" data-safety="4 Stars"
+                    data-driven="55,000 km" data-city="Ahmedabad" onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.So3QbQTBADBdDwzYHA-DuAHaEV?pid=Api&P=0&h=180"
+                        alt="Ford EcoSport" class="car-image">
+                    <div class="car-details">
+                        <h5>Ford EcoSport (2018)</h5>
+                        <p>Diesel • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Ahmedabad</p>
+                        <div class="car-price">₹ 7.90 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="796 cc" data-power="47 bhp"
+                    data-mileage="22.0 kmpl" data-seats="5" data-transmission="Manual" data-tank="35 L"
+                    data-clearance="160 mm" data-boot="177 L" data-body="Hatchback" data-safety="0 Stars"
+                    data-driven="12,000 km" data-city="Bangalore" onclick="showCarDetails(this)">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.60TqvIuzuRzQ8_4Ma2MZkgHaEK?pid=Api&P=0&h=180"
+                        alt="Maruti Alto 800" class="car-image">
+                    <div class="car-details">
+                        <h5>Maruti Alto 800 (2021)</h5>
+                        <p>Petrol • Manual</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Bangalore</p>
+                        <div class="car-price">₹ 3.50 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+                <div class="car-card" data-condition="Used" data-engine="1582 cc" data-power="126 bhp"
+                    data-mileage="24.0 kmpl" data-seats="5" data-transmission="Automatic" data-tank="45 L"
+                    data-clearance="165 mm" data-boot="480 L" data-body="Sedan" data-safety="5 Stars"
+                    data-driven="60,000 km" data-city="Hyderabad" onclick="showCarDetails(this)">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.DDHoUt3tkjYDURQBBEp4MAHaFj?pid=Api&P=0&h=180"
+                        alt="Hyundai Verna" class="car-image">
+                    <div class="car-details">
+                        <h5>Hyundai Verna (2017)</h5>
+                        <p>Diesel • Automatic</p>
+                        <p style="margin: 5px 0; font-size: 0.9rem; color: #666;"><i class="fas fa-map-marker-alt"></i> Hyderabad</p>
+                        <div class="car-price">₹ 8.80 Lakh</div>
+                        <div class="compare-checkbox-wrapper">
+                            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare(this)"> Compare
+                        </div>
+                        <button class="detail-btn"
+                            onclick="showCarDetails(this.closest('.car-card')); event.stopPropagation();">View
+                            Details</button>
+                    </div>
+                </div>
+            </div>
+            <div id="noResults"
+                style="display: none; text-align: center; padding: 2rem; font-size: 1.2rem; color: #666;">
+                No results found matching your search.
+            </div>
+
+            <div class="brand-section">
+                <h2 class="section-title">Browse by Brand</h2>
+                <div class="brand-grid">
+                    <div class="brand-item" onclick="filterBrand('Maruti')">
+                        <img src="https://motorhub.club/wp-content/uploads/2025/10/Suzuki-New-logo.webp" alt="Maruti"
+                            class="brand-logo">
+                        <span class="brand-name">Maruti</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Tata')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Tata_logo.svg" alt="Tata"
+                            class="brand-logo">
+                        <span class="brand-name">Tata</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Hyundai')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg"
+                            alt="Hyundai" class="brand-logo">
+                        <span class="brand-name">Hyundai</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Kia')">
+                        <img src="https://bucket.dealervenom.com/2023/10/17388_Kia_Logo.jpg?auto=compress%2Cformat&ixlib=php-3.3.1"
+                            alt="Kia" class="brand-logo">
+                        <span class="brand-name">Kia</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Toyota')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" alt="Toyota"
+                            class="brand-logo">
+                        <span class="brand-name">Toyota</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Mahindra')">
+                        <img src="https://logowik.com/content/uploads/images/mahindra-suv1293.jpg" alt="Mahindra"
+                            class="brand-logo">
+                        <span class="brand-name">Mahindra</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Honda')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Honda.svg" alt="Honda"
+                            class="brand-logo">
+                        <span class="brand-name">Honda</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('MG')">
+                        <img src="https://www.carlogos.org/logo/MG-logo-silver-2010-2560x1440.png" alt="MG"
+                            class="brand-logo">
+                        <span class="brand-name">MG</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Renault')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Renault_2021_Text.svg"
+                            alt="Renault" class="brand-logo">
+                        <span class="brand-name">Renault</span>
+                    </div>
+                    <div class="brand-item" onclick="filterBrand('Ford')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" alt="Ford"
+                            class="brand-logo">
+                        <span class="brand-name">Ford</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reviews Section -->
+    <div id="reviews" class="reviews-section">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Rahul Sharma</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">"Found my dream car (Tata Nexon) at a great price! The process was smooth and
+                    transparent. Highly recommended."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Priya Patel</span>
+                    <span class="review-stars">★★★★☆</span>
+                </div>
+                <p class="review-text">"Great collection of used cars. I bought a Honda City and it runs like new. The
+                    staff was very helpful."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Amit Singh</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">"The website is very easy to use. I loved the filter options to find exactly what
+                    I was looking for within my budget."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Sneha Gupta</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">"Excellent service! I sold my old car and bought a new Swift. The exchange value
+                    offered was the best in the market."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Vikram Malhotra</span>
+                    <span class="review-stars">★★★★☆</span>
+                </div>
+                <p class="review-text">"Good experience overall. The test drive arrangement was quick. Just wish there
+                    were more color options for the Thar."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Anjali Desai</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">"Bought a Hyundai Creta. The delivery was on time and the car was in perfect
+                    condition. Very happy with the service."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Rohan Mehta</span>
+                    <span class="review-stars">★★★★☆</span>
+                </div>
+                <p class="review-text">"The loan assistance provided was excellent. Got my car financed quickly with
+                    minimum paperwork."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Kavita Reddy</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">"AutoView made it so easy to compare different models. I finally decided on the
+                    Kia Seltos and I love it!"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div id="aboutSection" class="about-section">
+        <div class="about-hero">
+            <h1>Driving Your Dreams</h1>
+            <p style="font-size: 1.5rem; opacity: 0.9;">India's most trusted car search venture</p>
+        </div>
+
+        <div class="about-content-wrapper">
+            <div class="about-intro">
+                <p>Welcome to <strong>AutoView</strong>. We aren't just a website; we are your co-pilot in the journey
+                    of finding the perfect car. From detailed specs to immersive 360-degree views, we bring the showroom
+                    to your screen.</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <i class="fas fa-car"></i>
+                    <h3>4000+</h3>
+                    <p>Dealers Network</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <h3>1M+</h3>
+                    <p>Happy Users</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-handshake"></i>
+                    <h3>50+</h3>
+                    <p>Brand Partners</p>
+                </div>
+            </div>
+
+            <div class="mission-vision-container">
+                <div class="mv-card">
+                    <div class="icon-box"><i class="fas fa-eye"></i></div>
+                    <h3>Our Vision</h3>
+                    <p>To construct a complete ecosystem for consumers, manufacturers, and dealers, creating a seamless
+                        automotive world.</p>
+                </div>
+                <div class="mv-card">
+                    <div class="icon-box"><i class="fas fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
+                    <p>To delight car buyers with a wide selection of cars and services, providing the best car buying
+                        experience imaginable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faqSection" class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How do I buy a car from AutoView?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Browse our collection, select your preferred car, and click "View Details". Contact us through the
+                    inquiry form to schedule a test drive and complete the purchase.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Are the used cars certified?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, all used cars undergo a 150-point inspection. We provide detailed reports and warranty options.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you provide financing options?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, we partner with leading banks. Our team helps you get the best loan rates with minimal
+                    documentation.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can I exchange my old car?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We offer competitive exchange values. Our experts will evaluate your vehicle and provide
+                    the best offer.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What documents do I need?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    You'll need ID proof, address proof, photographs, and income proof (for financing). We'll guide you
+                    through the process.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Is home delivery available?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, we offer doorstep delivery across all major cities after completing formalities.
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Contact Us Section -->
+    <div id="contactSection" class="contact-section">
+        <h2 class="section-title">Contact Us</h2>
+        <form onsubmit="handleContact(event)">
+            <div class="form-group">
+                <label for="contactName">Full Name</label>
+                <input type="text" id="contactName" required placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="contactEmail">Email Address</label>
+                <input type="email" id="contactEmail" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="contactSubject">Subject</label>
+                <input type="text" id="contactSubject" required placeholder="What is this regarding?">
+            </div>
+            <div class="form-group">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" rows="5" required placeholder="Type your message here..."
+                    style="width: 100%; padding: 0.5rem; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-family: inherit;"></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+
+    <!-- Terms & Conditions Section -->
+    <div id="termsSection" class="terms-section">
+        <h2 class="section-title">Terms & Conditions</h2>
+        <div class="terms-content">
+            <p>Welcome to AutoView. By accessing this website, you agree to be bound by these terms and conditions.</p>
+            <h3>1. Usage</h3>
+            <p>You agree to use this website only for lawful purposes and in a way that does not infringe the rights of,
+                restrict or inhibit anyone else's use and enjoyment of the website.</p>
+            <h3>2. Content</h3>
+            <p>The content of the pages of this website is for your general information and use only. It is subject to
+                change without notice.</p>
+            <h3>3. Liability</h3>
+            <p>AutoView shall not be liable for any loss or damage arising from your use of, or inability to use, the
+                website or any information contained in it.</p>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Section -->
+    <div id="privacySection" class="privacy-section">
+        <h2 class="section-title">Privacy Policy</h2>
+        <div class="privacy-content">
+            <p>At AutoView, we value your privacy. This policy explains how we handle your data.</p>
+            <h3>1. Information Collection</h3>
+            <p>We collect information you provide directly to us, such as when you create an account, subscribe to our
+                newsletter, or contact us.</p>
+            <h3>2. Use of Information</h3>
+            <p>We use the information we collect to provide, maintain, and improve our services, and to communicate with
+                you.</p>
+            <h3>3. Data Security</h3>
+            <p>We implement reasonable security measures to protect your personal information.</p>
+            <h3>4. Cookies</h3>
+            <p>We use cookies to enhance your experience on our website.</p>
+        </div>
+    </div>
+    <!-- Sell Car Section -->
+    <div id="sellCarSection" class="sell-car-section">
+        <h2 class="section-title">Sell Your Car</h2>
+        <form onsubmit="handleSellCar(event)">
+            <h3 style="color: #333; margin-bottom: 1rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem;">
+                Customer Details</h3>
+            <div class="form-group">
+                <label for="sellerName">Full Name</label>
+                <input type="text" id="sellerName" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="sellerPhone">Phone Number</label>
+                <input type="tel" id="sellerPhone" required placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="sellerEmail">Email Address</label>
+                <input type="email" id="sellerEmail" required placeholder="Enter your email address">
+            </div>
+            <div class="form-group">
+                <label for="sellerCity">City</label>
+                <input type="text" id="sellercity" required placeholder="Enter your city">
+            </div>
+
+            <h3
+                style="color: #333; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem;">
+                Car Details</h3>
+            <div class="form-group">
+                <label for="sellBrand">Car Brand</label>
+                <select id="sellBrand" required
+                    style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; background-color: white; color: #333; border-radius: 4px;">
+                    <option value="">Select Brand</option>
+                    <option value="Maruti">Maruti</option>
+                    <option value="Tata">Tata</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Kia">Kia</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Mahindra">Mahindra</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sellModel">Car Model</label>
+                <input type="text" id="sellModel" required placeholder="e.g. Swift, City, Creta">
+            </div>
+            <div class="form-group">
+                <label for="sellYear">Year of Purchase</label>
+                <input type="number" id="sellYear" required placeholder="e.g. 2019" min="2000" max="2026">
+            </div>
+            <div class="form-group">
+                <label for="sellPrice">Expected Price (₹)</label>
+                <input type="number" id="sellPrice" required placeholder="e.g. 500000">
+            </div>
+            <div class="form-group">
+                <label for="sellKm">Kilometers Driven</label>
+                <input type="number" id="sellKm" required placeholder="e.g. 45000">
+            </div>
+
+            <button type="submit" class="btn" style="margin-top: 1rem;">Submit Request</button>
+        </form>
+    </div>
+
+    <!-- Feedback Section -->
+    <div id="feedbackSection" class="feedback-section">
+        <h2 class="section-title">We Value Your Feedback</h2>
+        <form onsubmit="handleFeedback(event)">
+            <div class="form-group">
+                <label for="feedbackName">Full Name</label>
+                <input type="text" id="feedbackName" required placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="feedbackEmail">Email Address</label>
+                <input type="email" id="feedbackEmail" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="feedbackType">Feedback Type</label>
+                <select id="feedbackType" required
+                    style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; background-color: white; color: #333; border-radius: 4px;">
+                    <option value="">Select Type</option>
+                    <option value="Suggestion">Suggestion</option>
+                    <option value="Complaint">Complaint</option>
+                    <option value="Appreciation">Appreciation</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="feedbackMessage">Message</label>
+                <textarea id="feedbackMessage" rows="5" required placeholder="Your feedback..."
+                    style="width: 100%; padding: 0.5rem; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-family: inherit;"></textarea>
+            </div>
+            <button type="submit" class="btn">Submit Feedback</button>
+            <button type="button" class="btn" onclick="closeFeedback()"
+                style="margin-top: 10px; background: rgb(108, 117, 125);">Return to Home</button>
+        </form>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparisonModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <span class="close" onclick="closeComparisonModal()">&times;</span>
+            <h2>Car Comparison</h2>
+            <div id="comparison-table-container"></div>
+        </div>
+    </div>
+
+    <!-- Comparison Bar -->
+    <div id="compare-bar">
+        <div id="selected-cars"></div>
+        <div class="compare-buttons">
+            <button id="compare-btn" onclick="showComparison()" disabled>Compare (0/2)</button>
+            <button id="clear-compare-btn" onclick="clearComparison()">Clear</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <img src="images.jpg" alt="AutoView Logo"
+                    style="width: 180px; height: 80px; margin-bottom: 1rem; filter: brightness(1) invert(1); border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;">
+            </div>
+            <div class="footer-section links">
+                <h5>AutoView</h5>
+                <ul>
+                    <li><a href="#" onclick="showAbout()">About Us</a></li>
+                    <li><a href="#" onclick="showFaq()">FAQ</a></li>
+                    <li><a href="#" onclick="showContact()">Contact Us</a></li>
+                    <li><a href="#" onclick="showTerms()">Terms & Conditions</a></li>
+                    <li><a href="#" onclick="showPrivacy()">Privacy Policy</a></li>
+                    <li><a href="#" onclick="Feedback()">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h5>Follow Us</h5>
+                <div class="social-links">
+                    <a href="https://www.facebook.com" target="_blank" title="Facebook"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" target="_blank" title="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.whatsapp.com" target="_blank" title="WhatsApp"><i
+                            class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section newsletter">
+                <h5>Newsletter</h5>
+                <form onsubmit="handleSubscribe(event)">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AutoView. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Car Details Modal -->
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Car Image" class="modal-image">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDetails"></p>
+            <div id="modalPrice" class="car-price" style="font-size: 1.5rem;"></div>
+            <button class="btn" onclick="handleCarInquiry()" style="margin: 1rem 0;">Car Inquiry</button>
+            <div class="modal-specs">
+                <div class="spec-item">
+                    <span class="spec-label">Engine</span>
+                    <span id="modalEngine" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Power</span>
+                    <span id="modalPower" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Mileage</span>
+                    <span id="modalMileage" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Seats</span>
+                    <span id="modalSeats" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Transmission</span>
+                    <span id="modalTransmission" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Fuel Tank</span>
+                    <span id="modalTank" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Ground Clearance</span>
+                    <span id="modalClearance" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Boot Space</span>
+                    <span id="modalBoot" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Body Type</span>
+                    <span id="modalBody" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Safety Rating</span>
+                    <span id="modalSafety" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Kilometers Driven</span>
+                    <span id="modalDriven" class="spec-value">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Location</span>
+                    <span id="modalCity" class="spec-value">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Custom Alert Modal -->
+    <div id="customAlertModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center; padding-top: 30px;">
+            <p id="customAlertMessage" style="font-size: 1.1rem; margin-bottom: 25px; color: #333;"></p>
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <button id="customAlertCancelBtn" class="btn"
+                    style="background-color: rgb(149, 165, 166); width: auto; min-width: 100px; display: none;">Cancel</button>
+                <button id="customAlertOkBtn" class="btn" style="width: auto; min-width: 100px;">OK</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        let currentCategory = 'All';
+        let carsToCompare = [];
+
+        function setActiveNav(navId) {
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            if (navId) document.getElementById(navId).classList.add('active');
+        }
+
+        function filterCondition(category) {
+            currentCategory = category;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('brandFilter').value = '';
+            filterCars();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (category === 'All') setActiveNav('navHome');
+            else if (category === 'New') setActiveNav('navNew');
+            else if (category === 'Used') setActiveNav('navUsed');
+        }
+
+        function toggleCompare(checkbox) {
+            const card = checkbox.closest('.car-card');
+            if (checkbox.checked) {
+                if (carsToCompare.length < 2) {
+                    carsToCompare.push(card);
+                } else {
+                    checkbox.checked = false;
+                    showCustomAlert("You can only compare up to 2 cars at a time.");
+                }
+            } else {
+                carsToCompare = carsToCompare.filter(c => c !== card);
+            }
+            updateCompareBar();
+        }
+
+        function updateCompareBar() {
+            const compareBar = document.getElementById('compare-bar');
+            const compareBtn = document.getElementById('compare-btn');
+            const selectedCarsDiv = document.getElementById('selected-cars');
+
+            if (carsToCompare.length > 0) {
+                compareBar.style.display = 'flex';
+                selectedCarsDiv.innerHTML = '';
+                carsToCompare.forEach(car => {
+                    const carName = car.querySelector('h5').innerText;
+                    const carImgSrc = car.querySelector('.car-image').src;
+                    selectedCarsDiv.innerHTML += `
+                <div class="selected-car-item">
+                    <img src="${carImgSrc}" alt="${carName}">
+                    <span>${carName}</span>
+                </div>
+            `;
+                });
+            } else {
+                compareBar.style.display = 'none';
+            }
+
+            compareBtn.innerText = `Compare (${carsToCompare.length}/2)`;
+            compareBtn.disabled = carsToCompare.length !== 2;
+        }
+
+        function clearComparison() {
+            carsToCompare.forEach(card => {
+                const checkbox = card.querySelector('.compare-checkbox');
+                if (checkbox) checkbox.checked = false;
+            });
+            carsToCompare = [];
+            updateCompareBar();
+        }
+
+        function showComparison() {
+            if (carsToCompare.length !== 2) {
+                showCustomAlert("Please select exactly 2 cars to compare.");
+                return;
+            }
+
+            const modal = document.getElementById('comparisonModal');
+            const container = document.getElementById('comparison-table-container');
+
+            const [car1, car2] = carsToCompare;
+
+            const attributes = [
+                { label: 'Image', key: 'image' },
+                { label: 'Model', key: 'title' },
+                { label: 'Price', key: 'price' },
+                { label: 'Engine', 'data-key': 'data-engine' },
+                { label: 'Power', 'data-key': 'data-power' },
+                { label: 'Mileage', 'data-key': 'data-mileage' },
+                { label: 'Seats', 'data-key': 'data-seats' },
+                { label: 'Transmission', 'data-key': 'data-transmission' },
+                { label: 'Fuel Tank', 'data-key': 'data-tank' },
+                { label: 'Ground Clearance', 'data-key': 'data-clearance' },
+                { label: 'Boot Space', 'data-key': 'data-boot' },
+                { label: 'Body Type', 'data-key': 'data-body' },
+                { label: 'Safety Rating', 'data-key': 'data-safety' },
+                { label: 'KM Driven', 'data-key': 'data-driven' },
+                { label: 'Location', 'data-key': 'data-city' },
+            ];
+
+            const getCarData = (car, attr) => {
+                if (attr.key === 'image') return `<img src="${car.querySelector('.car-image').src}" style="width:100%; max-width:200px; border-radius: 8px;">`;
+                if (attr.key === 'title') return car.querySelector('h5').innerText;
+                if (attr.key === 'price') return car.querySelector('.car-price').innerText;
+                return car.getAttribute(attr['data-key']) || 'N/A';
+            };
+
+            let tableHTML = `<table class="comparison-table" style="width:100%; border-collapse: collapse;"><thead><tr style="background: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 210, 255)); color: white;"><th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Attribute</th><th style="padding: 15px; text-align: center; border: 1px solid #ddd;">${getCarData(car1, { key: 'title' })}</th><th style="padding: 15px; text-align: center; border: 1px solid #ddd;">${getCarData(car2, { key: 'title' })}</th></tr></thead><tbody>`;
+            attributes.forEach(attr => {
+                if (attr.label === 'Model') return;
+                const val1 = getCarData(car1, attr);
+                const val2 = getCarData(car2, attr);
+                if (val1 === 'N/A' && val2 === 'N/A') return;
+                tableHTML += `<tr style="background: ${attributes.indexOf(attr) % 2 === 0 ? '#f9f9f9' : 'white'};"><td style="padding: 12px; font-weight: bold; color: #333; border: 1px solid #ddd;">${attr.label}</td><td style="padding: 12px; text-align: center; border: 1px solid #ddd;">${val1}</td><td style="padding: 12px; text-align: center; border: 1px solid #ddd;">${val2}</td></tr>`;
+            });
+            tableHTML += '</tbody></table>';
+            container.innerHTML = tableHTML;
+            modal.style.display = 'block';
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('comparisonModal').style.display = 'none';
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('homePage').style.display = 'block';
+            filterCondition('All');
+            startSlides();
+            document.getElementById('authBtn').innerHTML = '<i class="fas fa-user-circle" style="margin-right: 5px;"></i> Logout';
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            showCustomAlert("Registration Successful! Please login.");
+            showLogin();
+        }
+
+        function showRegister() {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('registerBox').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('registerBox').style.display = 'none';
+            document.getElementById('loginBox').style.display = 'block';
+        }
+
+        function closeLogin() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('homePage').style.display = 'block';
+        }
+
+        function logout() {
+            const authBtn = document.getElementById('authBtn');
+            if (authBtn.innerText.includes('Logout')) {
+                showCustomAlert("Are you sure you want to logout?", true, function (confirmed) {
+                    if (confirmed) {
+                        showCustomAlert("You have been logged out successfully.");
+                        authBtn.innerHTML = '<i class="fas fa-user-circle" style="margin-right: 5px;"></i> Login';
+                    }
+                });
+            } else {
+                document.getElementById('homePage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
+            }
+        }
+
+        function showReviews() {
+            document.querySelector('.hero').style.display = 'block';
+            document.getElementById('carsSection').style.display = 'block';
+            document.getElementById('reviews').style.display = 'block';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+            document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showAbout() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'block';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+            setActiveNav(null);
+        }
+
+        function showFaq() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'block';
+            setActiveNav(null);
+        }
+
+        function showContact() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'block';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+            setActiveNav(null);
+        }
+
+        function handleCarInquiry() {
+            const carName = document.getElementById('modalTitle').innerText;
+            closeModal();
+            showContact();
+            document.getElementById('contactSubject').value = "Inquiry about " + carName;
+        }
+
+        function showTerms() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'block';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+            setActiveNav(null);
+        }
+
+        function showPrivacy() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'block';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+            setActiveNav(null);
+        }
+
+        function Feedback() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'block';
+            document.getElementById('faqSection').style.display = 'none';
+            setActiveNav(null);
+        }
+
+        function closeFeedback() {
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('homePage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleFeedback(e) {
+            e.preventDefault();
+            showCustomAlert("Thank you for your feedback! We appreciate your input.");
+            document.getElementById('feedbackSection').style.display = 'none';
+            filterCondition('All');
+        }
+
+        function showSellCar() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('carsSection').style.display = 'none';
+            document.getElementById('reviews').style.display = 'none';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'block';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+            setActiveNav('navSell');
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            showCustomAlert("Thank you for contacting us! We will get back to you shortly.");
+            document.getElementById('contactSection').style.display = 'none';
+            filterCondition('All');
+        }
+
+        function handleSellCar(e) {
+            e.preventDefault();
+            showCustomAlert("Thank you! Your request to sell your car has been submitted. Our team will contact you shortly.");
+            document.getElementById('sellCarSection').style.display = 'none';
+            filterCondition('All');
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            showCustomAlert("Thank you for subscribing to our newsletter!");
+            e.target.reset();
+        }
+
+        function filterBrand(brandName) {
+            currentCategory = 'All';
+            const brandSelect = document.getElementById('brandFilter');
+            brandSelect.value = brandName;
+            filterCars();
+            document.querySelector('.car-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterCars() {
+            const input = document.getElementById('searchInput');
+            const brandSelect = document.getElementById('brandFilter');
+            const citySelect = document.getElementById('cityFilter');
+            const filter = input.value.toUpperCase();
+            const brandFilter = brandSelect.value.toUpperCase();
+            const cityFilter = citySelect ? citySelect.value.toUpperCase() : '';
+            const cards = document.getElementsByClassName('car-card');
+            const sectionTitle = document.querySelector('.section-title');
+            const hero = document.querySelector('.hero');
+            const noResults = document.getElementById('noResults');
+
+            if (currentCategory === 'All' && filter === "" && brandFilter === "" && cityFilter === "") {
+                sectionTitle.innerText = "Most Popular Cars";
+                if (hero) hero.style.display = 'block';
+            } else {
+                if (filter !== "") {
+                    sectionTitle.innerText = "Search Results";
+                } else if (brandFilter !== "") {
+                    sectionTitle.innerText = brandSelect.value + " Cars";
+                } else if (cityFilter !== "") {
+                    sectionTitle.innerText = "Cars in " + citySelect.value;
+                } else {
+                    sectionTitle.innerText = currentCategory + " Cars";
+                }
+                if (hero) hero.style.display = 'none';
+            }
+
+            // Ensure cars section is visible when filtering
+            document.getElementById('carsSection').style.display = 'block';
+            document.getElementById('reviews').style.display = 'block';
+            document.getElementById('aboutSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+            document.getElementById('termsSection').style.display = 'none';
+            document.getElementById('privacySection').style.display = 'none';
+            document.getElementById('sellCarSection').style.display = 'none';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('faqSection').style.display = 'none';
+
+            let hasResults = false;
+
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].getElementsByTagName('h5')[0];
+                const cardCondition = cards[i].getAttribute('data-condition');
+                const isPopular = cards[i].getAttribute('data-popular') === 'true';
+                const cardCity = cards[i].getAttribute('data-city') || '';
+
+                const txtValue = title.textContent || title.innerText;
+                const carBrand = txtValue.split(' ')[0].toUpperCase();
+
+                const matchesSearch = txtValue.toUpperCase().indexOf(filter) > -1;
+                const matchesBrand = brandFilter === "" || carBrand === brandFilter;
+                const matchesCity = cityFilter === "" || cardCity.toUpperCase() === cityFilter;
+                let matchesCondition = (cardCondition === currentCategory);
+                if (currentCategory === 'All') {
+                    matchesCondition = isPopular || filter !== "" || brandFilter !== "" || cityFilter !== "";
+                }
+
+                if (matchesCondition && matchesSearch && matchesBrand && matchesCity) {
+                    cards[i].style.display = "";
+                    hasResults = true;
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            if (noResults) {
+                noResults.style.display = hasResults ? "none" : "block";
+            }
+        }
+
+        function showCarDetails(card) {
+            const authBtn = document.getElementById('authBtn');
+            if (!authBtn.innerText.includes('Logout')) {
+                showCustomAlert("Please login to view details.");
+                document.getElementById('homePage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
+                return;
+            }
+            const imageSrc = card.querySelector('.car-image').src;
+            const title = card.querySelector('h5').innerText;
+            const details = card.querySelector('p').innerText;
+            const price = card.querySelector('.car-price').innerText;
+
+            // New details
+            const engine = card.getAttribute('data-engine') || 'N/A';
+            const power = card.getAttribute('data-power') || 'N/A';
+            const mileage = card.getAttribute('data-mileage') || 'N/A';
+            const seats = card.getAttribute('data-seats') || 'N/A';
+            const transmission = card.getAttribute('data-transmission') || 'N/A';
+            const tank = card.getAttribute('data-tank') || 'N/A';
+            const clearance = card.getAttribute('data-clearance') || 'N/A';
+            const boot = card.getAttribute('data-boot') || 'N/A';
+            const body = card.getAttribute('data-body') || 'N/A';
+            const safety = card.getAttribute('data-safety') || 'N/A';
+            const driven = card.getAttribute('data-driven') || 'N/A';
+            const city = card.getAttribute('data-city') || 'N/A';
+
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDetails').innerText = details;
+            document.getElementById('modalPrice').innerText = price;
+
+            document.getElementById('modalEngine').innerText = engine;
+            document.getElementById('modalPower').innerText = power;
+            document.getElementById('modalMileage').innerText = mileage;
+            document.getElementById('modalSeats').innerText = seats;
+            document.getElementById('modalTransmission').innerText = transmission;
+            document.getElementById('modalTank').innerText = tank;
+            document.getElementById('modalClearance').innerText = clearance;
+            document.getElementById('modalBoot').innerText = boot;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('modalSafety').innerText = safety;
+            document.getElementById('modalDriven').innerText = driven;
+            document.getElementById('modalCity').innerText = city;
+
+            document.getElementById('carModal').style.display = "block";
+        }
+
+        function showCustomAlert(message, isConfirm = false, callback) {
+            const modal = document.getElementById('customAlertModal');
+            const msgElement = document.getElementById('customAlertMessage');
+            const okBtn = document.getElementById('customAlertOkBtn');
+            const cancelBtn = document.getElementById('customAlertCancelBtn');
+
+            msgElement.innerText = message;
+            modal.style.display = "block";
+
+            if (isConfirm) {
+                cancelBtn.style.display = "inline-block";
+                cancelBtn.onclick = function () {
+                    modal.style.display = "none";
+                    if (callback) callback(false);
+                };
+            } else {
+                cancelBtn.style.display = "none";
+            }
+
+            okBtn.onclick = function () {
+                modal.style.display = "none";
+                if (callback) callback(true);
+            };
+        }
+
+        function closeModal() {
+            document.getElementById('carModal').style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('carModal');
+            const comparisonModal = document.getElementById('comparisonModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            if (event.target == comparisonModal) {
+                comparisonModal.style.display = "none";
+            }
+        }
+
+        let slideIndex = 1;
+        let slideTimer;
+
+        function startSlides() {
+            if (slideTimer) clearInterval(slideTimer);
+            showSlides(slideIndex);
+            slideTimer = setInterval(function () { plusSlides(1) }, 3000);
+        }
+
+        function plusSlides(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex += n);
+            slideTimer = setInterval(function () { plusSlides(1) }, 3000);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            if (slides.length === 0) return;
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        // Initialize home page
+        startSlides();
+        filterCondition('All');
+
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
